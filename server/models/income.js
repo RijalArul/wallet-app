@@ -19,9 +19,42 @@ module.exports = (sequelize, DataTypes) => {
   }
   Income.init(
     {
-      name: DataTypes.STRING,
-      amount: DataTypes.INTEGER,
-      userId: DataTypes.INTEGER
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: 'name is required'
+          },
+          notEmpty: {
+            msg: 'name is required'
+          }
+        }
+      },
+      amount: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: 'amount income is required'
+          },
+          notEmpty: {
+            msg: 'amount income is required'
+          }
+        }
+      },
+      userId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: 'userId is required'
+          },
+          notEmpty: {
+            msg: 'userId is required'
+          }
+        }
+      }
     },
     {
       sequelize,
