@@ -58,7 +58,17 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: 'Income'
+      modelName: 'Income',
+      hooks: {
+        afterCreate (instance, options) {
+          sequelize.models.Activity.create({
+            name: instance.name,
+            amount: instance.amount,
+            userId: instance.userId,
+            incomeId: instance.incomeId
+          })
+        }
+      }
     }
   )
   return Income
