@@ -81,9 +81,17 @@ class AccountController {
 
   static async profile (req, res) {
     try {
-      console.log('Profile')
+      const account = await Account.findOne({
+        where: {
+          id: req.userData.id
+        }
+      })
+
+      res.status(200).json(account)
     } catch (err) {
-      console.log(err)
+      res.status(500).json({
+        msg: 'Internal Server Error'
+      })
     }
   }
 }
