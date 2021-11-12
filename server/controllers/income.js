@@ -72,6 +72,8 @@ class IncomeController {
       } else if (income.amount < payload.amount) {
         totalIncome = payload.amount - income.amount
         total = account.saldo + totalIncome
+      } else {
+        total = account.saldo
       }
 
       const updatedSaldo = {
@@ -100,6 +102,44 @@ class IncomeController {
       res.status(500).json({
         msg: 'Internal Server Error'
       })
+    }
+  }
+
+  static async deleteIncome (req, res) {
+    try {
+      const income = await Income.findOne({
+        where: {
+          id: req.params.id
+        }
+      })
+
+      if (income) {
+        const account = await Account.findOne({
+          where: {
+            id: req.userData.id
+          }
+        })
+        const saldo = {
+          saldo: account.saldo - income.amount
+        }
+
+        await Income.destroy({
+          where: {
+            id: income.id
+          }
+        })
+
+        const decreaseSaldo = await Account.update(saldo, {
+          where: {
+            id: req.userData.id
+          },
+          returning: true
+        })
+
+        res.status(200).json(decreaseSaldo[1][0])
+      }
+    } catch (err) {
+      console.log(err)
     }
   }
 }

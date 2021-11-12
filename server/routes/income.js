@@ -9,5 +9,11 @@ router.put(
   authorization,
   IncomeController.updateIncome
 )
+router.delete(
+  '/:id',
+  authenthication,
+  authorization,
+  IncomeController.deleteIncome
+)
 
 module.exports = router
