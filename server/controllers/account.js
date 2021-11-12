@@ -78,6 +78,14 @@ class AccountController {
       }
     }
   }
+
+  static async profile (req, res) {
+    try {
+      console.log('Profile')
+    } catch (err) {
+      console.log(err)
+    }
+  }
 }
 
 module.exports = AccountController
