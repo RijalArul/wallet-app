@@ -1,11 +1,25 @@
+const { generateToken } = require('../helpers/jwt')
 const { Account } = require('../models')
 
 class AccountController {
   static async register (req, res) {
     try {
-      const { email, password, saldo } = req.body
+      const payload = {
+        email: req.body.email,
+        password: req.body.password,
+        saldo: req.body.saldo
+      }
+      const create = await Account.create(payload)
+      if (create) {
+        const access_token = generateToken({
+          userId: create.userId,
+          email: create.email
+        })
 
-      const create = await Account.create(email, password, saldo)
+        res.status(201).json({
+          access_token: access_token
+        })
+      }
     } catch (err) {
       if (err.name === 'SequelizeValidationError') {
         const errors = err.errors.map(error => {
