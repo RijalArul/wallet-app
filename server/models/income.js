@@ -9,8 +9,11 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate (models) {
       // define association here
-      Income.belongsTo(models.User, {
+      Income.belongsTo(models.Account, {
         foreignKey: 'userId'
+      })
+      Income.hasMany(models.Activity, {
+        foreignKey: 'incomeId'
       })
     }
   }

@@ -9,14 +9,12 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate (models) {
       // define association here
-      Activity.belongsTo(models.User, {
+      Activity.belongsTo(models.Account, {
         foreignKey: 'userId'
       })
-
       Activity.belongsTo(models.Income, {
         foreignKey: 'incomeId'
       })
-
       Activity.belongsTo(models.Expend, {
         foreignKey: 'expendId'
       })

@@ -16,6 +16,10 @@ module.exports = (sequelize, DataTypes) => {
       Account.hasMany(models.Expend, {
         foreignKey: 'userId'
       })
+
+      Account.hasMany(models.Activity, {
+        foreignKey: 'userId'
+      })
     }
   }
   Account.init(
