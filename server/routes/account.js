@@ -1,5 +1,5 @@
 const AccountController = require('../controllers/account')
-const { authenthication } = require('../middlewares/authenthication')
+const { authenthication } = require('../middlewares/auth')
 
 const router = require('express').Router()
 
