@@ -24,6 +24,9 @@ accountLogin.addEventListener('submit', async e => {
     })
     if (response.status === 401) {
       throw { name: 'Error_Login' }
+    } else {
+      const data = await response.json()
+      localStorage.setItem('access_token', data.access_token)
     }
   } catch (err) {
     if (err.name === 'Error_Login') {
