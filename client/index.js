@@ -22,7 +22,14 @@ accountLogin.addEventListener('submit', async e => {
       },
       body: JSON.stringify(loginAccount)
     })
-
-    console.log(await response)
-  } catch (err) {}
+    if (response.status === 401) {
+      throw { name: 'Error_Login' }
+    }
+  } catch (err) {
+    if (err.name === 'Error_Login') {
+      alert('Invalid Email / Password')
+      email.value = ''
+      password.value = ''
+    }
+  }
 })
