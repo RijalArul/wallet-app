@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken')
-const { Account, Income } = require('../models')
+const { Expend, Income } = require('../models')
 
 function authenthication (req, res, next) {
   try {
@@ -28,7 +28,15 @@ async function authorization (req, res, next) {
       }
     })
 
+    const expend = await Expend.findOne({
+      where: {
+        userId: req.userData.id
+      }
+    })
+
     if (income.userId === req.userData.id) {
+      next()
+    } else if (expend.userId === req.userData.id) {
       next()
     } else {
       throw { name: 'Forbidden_Access' }
