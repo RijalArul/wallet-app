@@ -44,6 +44,48 @@ class IncomeController {
     }
   }
 
+  static async readIncome (req, res) {
+    try {
+      const income = await Income.findAll({
+        where: {
+          userId: req.userData.id
+        }
+      })
+
+      res.status(200).json(income)
+    } catch (err) {
+      res.status(500).json({
+        msg: 'Internal Server Error'
+      })
+    }
+  }
+
+  static async getIncome (req, res) {
+    try {
+      const income = await Income.findOne({
+        where: {
+          id: req.params.id
+        }
+      })
+
+      if (income) {
+        res.status(200).json(income)
+      } else {
+        throw { name: 'Income_Not_Found' }
+      }
+    } catch (err) {
+      if (err.name === 'Income_Not_Found') {
+        res.status(404).json({
+          msg: 'Income Not Found'
+        })
+      } else {
+        res.status(500).json({
+          msg: 'Internal Server Error'
+        })
+      }
+    }
+  }
+
   static async updateIncome (req, res) {
     try {
       const payload = {

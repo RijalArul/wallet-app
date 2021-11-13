@@ -3,6 +3,8 @@ const { authenthication, authorization } = require('../middlewares/auth')
 const router = require('express').Router()
 
 router.post('/', authenthication, ExpendController.createExpend)
+router.get('/', authenthication, ExpendController.readExpend)
+router.get('/:id', authenthication, authorization, ExpendController.getExpend)
 router.put(
   '/:id',
   authenthication,

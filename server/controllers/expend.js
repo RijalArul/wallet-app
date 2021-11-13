@@ -46,6 +46,48 @@ class ExpendController {
     }
   }
 
+  static async readExpend (req, res) {
+    try {
+      const expense = await Expend.findAll({
+        where: {
+          userId: req.userData.id
+        }
+      })
+
+      res.status(200).json(expense)
+    } catch (err) {
+      res.status(500).json({
+        msg: 'Internal Server Error'
+      })
+    }
+  }
+
+  static async getExpend (req, res) {
+    try {
+      const expend = await Expend.findOne({
+        where: {
+          id: req.params.id
+        }
+      })
+
+      if (expend) {
+        res.status(200).json(expend)
+      } else {
+        throw { name: 'Expend_Not_Found' }
+      }
+    } catch (err) {
+      if (err.name === 'Expend_Not_Found') {
+        res.status(404).json({
+          msg: 'Expend Not Found'
+        })
+      } else {
+        res.status(500).json({
+          msg: 'Internal Server Error'
+        })
+      }
+    }
+  }
+
   static async updateExpend (req, res) {
     try {
       const payload = {
