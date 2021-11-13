@@ -1,6 +1,7 @@
 const accountRegister = document.getElementById('account-register')
 const emailRegister = document.getElementById('email-register')
 const passwordRegister = document.getElementById('password-register')
+const saldoRegister = document.getElementById('saldo-register')
 const accountRegisterSubmit = document.getElementById('submit-register')
 const accountLogin = document.getElementById('account-login')
 const email = document.getElementById('email')
@@ -63,7 +64,35 @@ Account.showProfile()
 
 accountRegister.addEventListener('submit', async e => {
   try {
-  } catch (err) {}
+    e.preventDefault()
+    const registerAccount = new Account(
+      emailRegister.value,
+      passwordRegister.value,
+      saldoRegister.value
+    )
+    const response = await fetch('http://localhost:3000/accounts/register', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(registerAccount)
+    })
+    if (response.status === 400) {
+      throw { name: 'Error_Register' }
+    } else {
+      const data = await response.json()
+      localStorage.setItem('access_token', data.access_token)
+      email.value = ''
+      password.value = ''
+    }
+  } catch (err) {
+    if (err.name === 'Error Register') {
+      alert('All field must be required')
+      email.value = ''
+      password.value = ''
+    }
+  }
 })
 
 accountLogin.addEventListener('submit', async e => {
