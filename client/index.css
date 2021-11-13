@@ -157,3 +157,30 @@ tr:nth-child(even) {
 #submit-income:hover {
   box-shadow: 0px 1px 18px #091ea9;
 }
+
+#card-add-expend {
+  background: #fbfbfb;
+  border-radius: 8px;
+  box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.65);
+  height: 410px;
+  margin: 6rem auto 8.1rem auto;
+  width: 329px;
+}
+
+#submit-expend {
+  background: -webkit-linear-gradient(right, #1c17a2, #f19c1b);
+  border: none;
+  border-radius: 21px;
+  box-shadow: 0px 1px 8px #c68024;
+  cursor: pointer;
+  color: white;
+  font-family: 'Raleway SemiBold', sans-serif;
+  height: 42.3px;
+  margin: 0 auto;
+  margin-top: 50px;
+  transition: 0.25s;
+  width: 153px;
+}
+#submit-expend:hover {
+  box-shadow: 0px 1px 18px #091ea9;
+}
