@@ -107,27 +107,27 @@ class ExpendController {
     }
   }
 
-  static async deleteIncome (req, res) {
+  static async deleteExpend (req, res) {
     try {
-      const income = await Income.findOne({
+      const expend = await Expend.findOne({
         where: {
           id: req.params.id
         }
       })
 
-      if (income) {
+      if (expend) {
         const account = await Account.findOne({
           where: {
             id: req.userData.id
           }
         })
         const saldo = {
-          saldo: account.saldo - income.amount
+          saldo: account.saldo - expend.amount
         }
 
-        await Income.destroy({
+        await Expend.destroy({
           where: {
-            id: income.id
+            id: expend.id
           }
         })
 

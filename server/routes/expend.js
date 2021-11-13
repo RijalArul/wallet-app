@@ -9,5 +9,11 @@ router.put(
   authorization,
   ExpendController.updateExpend
 )
+router.delete(
+  '/:id',
+  authenthication,
+  authorization,
+  ExpendController.deleteExpend
+)
 
 module.exports = router
