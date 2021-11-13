@@ -83,8 +83,9 @@ accountRegister.addEventListener('submit', async e => {
     } else {
       const data = await response.json()
       localStorage.setItem('access_token', data.access_token)
-      email.value = ''
-      password.value = ''
+      emailRegister.value = ''
+      passwordRegister.value = ''
+      saldoRegister.value = 0
     }
   } catch (err) {
     if (err.name === 'Error Register') {
