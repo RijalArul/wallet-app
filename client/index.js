@@ -1,3 +1,7 @@
+const accountRegister = document.getElementById('account-register')
+const emailRegister = document.getElementById('email-register')
+const passwordRegister = document.getElementById('password-register')
+const accountRegisterSubmit = document.getElementById('submit-register')
 const accountLogin = document.getElementById('account-login')
 const email = document.getElementById('email')
 const password = document.getElementById('password')
@@ -56,6 +60,11 @@ class Account {
 }
 
 Account.showProfile()
+
+accountRegister.addEventListener('submit', async e => {
+  try {
+  } catch (err) {}
+})
 
 accountLogin.addEventListener('submit', async e => {
   try {
