@@ -11,6 +11,25 @@
 </head>
 
 <body>
+    <div id="card-register">
+        <div id="card-title">
+            <h2>Register</h2>
+            <div class="underline-title"></div>
+        </div>
+        <form class="form" id="account-register">
+            <label for="email" style="padding-top:13px">&nbsp;Email</label>
+            <input id="email" class="form-content" type="email" name="email" autocomplete="on" required />
+            <div class="form-border"></div>
+            <label for="password" style="padding-top:22px">&nbsp;Password</label>
+            <input id="password" class="form-content" type="password" name="password" required />
+            <div class="form-border"></div>
+            <label for="saldo" style="padding-top:22px">&nbsp;Saldo</label>
+            <input id="saldo" class="form-content" type="number" name="saldo" />
+            <input id="submit-btn" type="submit" name="submit" value="Register" />
+            <div class="form-border"></div>
+        </form>
+    </div>
+
     <div id="card-login">
         <div id="card-title">
             <h2>Login</h2>
@@ -22,7 +41,8 @@
             <div class="form-border"></div>
             <label for="password" style="padding-top:22px">&nbsp;Password</label>
             <input id="password" class="form-content" type="password" name="password" required />
-            <input id="submit-btn" type="submit" name="submit" value="LOGIN" /><a href="#" id="login">Don't have
+            <input id="submit-btn" type="submit" name="submit" value="LOGIN" /><a href="#card-register" id="login">Don't
+                have
                 account yet?</a>
             <div class="form-border"></div>
         </form>
@@ -95,8 +115,8 @@
         </form>
     </div>
 
-
-    <script src="index.js"></script>
+    < <script src="index.js">
+        </script>
 </body>
 
 </html>
