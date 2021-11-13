@@ -3,6 +3,10 @@ const email = document.getElementById('email')
 const password = document.getElementById('password')
 const accountSubmit = document.getElementById('submit-btn')
 const profileAccount = document.querySelector('profile')
+const incomeAddForm = document.getElementById('add-income')
+const incomeName = document.getElementById('nameincome')
+const incomeAmount = document.getElementById('amountincome')
+const incomeSubmit = document.getElementById('submit-income')
 
 class Account {
   constructor (email, password, saldo) {
@@ -120,3 +124,8 @@ class Income {
 }
 
 Income.showIncome()
+
+incomeAddForm.addEventListener('submit', e => {
+  try {
+  } catch (err) {}
+})
