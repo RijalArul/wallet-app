@@ -2,12 +2,28 @@ const accountLogin = document.getElementById('account-login')
 const email = document.getElementById('email')
 const password = document.getElementById('password')
 const accountSubmit = document.getElementById('submit-btn')
+const profileAccount = document.querySelector('profile')
 
 class Account {
-  constructor (email, password) {
+  constructor (email, password, saldo) {
     this.email = email
     this.password = password
+    this.saldo = saldo
   }
+
+  showProfile () {
+    try {
+        const response = await fetch('http://localhost:3000/accounts/profile', {
+            headers: {
+                access_token: localStorage.getItem('access_token')
+            }
+        })
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  static profileHtml (email, password, saldo) {}
 }
 
 accountLogin.addEventListener('submit', async e => {
