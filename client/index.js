@@ -11,20 +11,39 @@ class Account {
     this.saldo = saldo
   }
 
-  showProfile () {
+  static async showProfile () {
     try {
-        const response = await fetch('http://localhost:3000/accounts/profile', {
-            headers: {
-                access_token: localStorage.getItem('access_token')
-            }
-        })
+      const response = await fetch('http://localhost:3000/accounts/profile', {
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        }
+      })
+
+      const data = await response.json()
+
+      Account.profileHtml(data)
     } catch (err) {
       console.log(err)
     }
   }
 
-  static profileHtml (email, password, saldo) {}
+  static async profileHtml (data) {
+    try {
+      let output = ``
+      output = `
+            <img src="https://sp-ao.shortpixel.ai/client/to_webp,q_glossy,ret_img/https://www.mcpayment.id/wp-content/uploads/2017/07/mcpayment-logo.png"
+                alt="" style="width:100%">
+            <h3>${data.email}</h3>
+            <p>${data.saldo}</p>
+        `
+      return (document.getElementById('profile').innerHTML = output)
+    } catch (err) {
+      console.log(err)
+    }
+  }
 }
+
+Account.showProfile()
 
 accountLogin.addEventListener('submit', async e => {
   try {
