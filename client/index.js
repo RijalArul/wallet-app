@@ -79,9 +79,20 @@ accountLogin.addEventListener('submit', async e => {
 })
 
 class Income {
-  constructor (name, amount) {
+  constructor (name, amount, data) {
     this.name = name
     this.amount = amount
+    this.data = data
+  }
+
+  static showData () {
+    Income.incomeHtml(this.name, this.amount)
+    return this
+  }
+
+  static storeData (income) {
+    const data = this.data ?? []
+    data.push(income)
   }
 
   static async showIncome () {
@@ -94,7 +105,8 @@ class Income {
       })
 
       const data = await response.json()
-      Income.incomeHtml(data)
+      this.data = data
+      Income.incomeHtml(this.data)
     } catch (err) {
       console.log(err)
     }
@@ -125,7 +137,23 @@ class Income {
 
 Income.showIncome()
 
-incomeAddForm.addEventListener('submit', e => {
+incomeAddForm.addEventListener('submit', async e => {
   try {
-  } catch (err) {}
+    e.preventDefault()
+    const addIncome = new Income(incomeName.value, incomeAmount.value)
+    const response = await fetch(`http://localhost:3000/incomes`, {
+      method: 'POST',
+      headers: {
+        access_token: localStorage.getItem('access_token'),
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(addIncome)
+    })
+
+    const newIncome = await response.json()
+    Income.showData().storeData(newIncome)
+  } catch (err) {
+    console.log(err)
+  }
 })
