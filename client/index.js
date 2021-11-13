@@ -62,6 +62,8 @@ accountLogin.addEventListener('submit', async e => {
     } else {
       const data = await response.json()
       localStorage.setItem('access_token', data.access_token)
+      email.value = ''
+      password.value = ''
     }
   } catch (err) {
     if (err.name === 'Error_Login') {
@@ -71,3 +73,50 @@ accountLogin.addEventListener('submit', async e => {
     }
   }
 })
+
+class Income {
+  constructor (name, amount) {
+    this.name = name
+    this.amount = amount
+  }
+
+  static async showIncome () {
+    try {
+      const response = await fetch('http://localhost:3000/incomes', {
+        method: 'GET',
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        }
+      })
+
+      const data = await response.json()
+      Income.incomeHtml(data)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  static async incomeHtml (data) {
+    try {
+      let output = ``
+      data.forEach(income => {
+        output += `
+                <tr>
+                    <td>${income.id}</td>
+                    <td>${income.name}</td>
+                    <td>${income.amount}</td>
+                     <td>
+                    <button class="edit" data-id=${income.id}> Edit </button> || <button class="delete" data-id=${income.id}> Delete </button>
+                    </td>
+                </tr>
+            `
+      })
+
+      return (document.getElementById('body-income-table').innerHTML = output)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+}
+
+Income.showIncome()
