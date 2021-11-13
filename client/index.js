@@ -251,6 +251,23 @@ class Expend {
     }
   }
 
+  static updateExpend (id) {
+    const newExpend = {
+      id: +id,
+      name: this.name,
+      amount: this.amount
+    }
+
+    const updateExpend = this.data.map(expend => {
+      if (expend.id === +id) {
+        return newExpend
+      }
+      return expend
+    })
+
+    return updateExpend
+  }
+
   static async expendHtml (data) {
     try {
       let output = ``
@@ -294,8 +311,8 @@ expendAddForm.addEventListener('submit', async e => {
       Expend.showData().push(newExpends)
     } else {
       const id = editExpend.value
-      const expendEdit = new Income(editExpend.value, editExpend.value)
-      const response = await fetch(`http://localhost:3000/incomes/${id}`, {
+      const expendEdit = new Expend(expendName.value, expendAmount.value)
+      const response = await fetch(`http://localhost:3000/expends/${id}`, {
         method: 'PUT',
         headers: {
           access_token: localStorage.getItem('access_token'),
@@ -305,9 +322,9 @@ expendAddForm.addEventListener('submit', async e => {
         body: JSON.stringify(expendEdit)
       })
       const data = await response.json()
-      Income.updateIncome(data.id)
+      Expend.updateExpend(data.id)
       listIncome.innerHTML = ''
-      Income.showData()
+      Expend.showData()
     }
   } catch (err) {
     console.log(err)
